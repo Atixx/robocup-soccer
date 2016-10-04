@@ -7,10 +7,10 @@ import game_object
 from world_model import WorldModel
 
 # should we print messages received from the server?
-PRINT_SERVER_MESSAGES = False
+PRINT_SERVER_MESSAGES = True
 
 # should we print commands sent to the server?
-PRINT_SENT_COMMANDS = False
+PRINT_SENT_COMMANDS = True
 
 class MessageHandler:
     """
@@ -341,7 +341,7 @@ class MessageHandler:
         """
         Stores server parameter information.
         """
-        
+
         # each list is two items: a value name and its value.  we add them all
         # to the ServerParameters class inside WorldModel programmatically.
         for param in msg[1:]:
@@ -349,7 +349,7 @@ class MessageHandler:
             # by setting the attribute programmatically.
             if len(param) != 2:
                 continue
-            
+
             # the parameter and its value
             key = param[0]
             value = param[1]
@@ -574,4 +574,3 @@ class ActionHandler:
         cmd = ActionHandler.Command(cmd_type, msg)
 
         self.q.put(cmd)
-
