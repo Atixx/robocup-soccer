@@ -6,6 +6,7 @@ import random
 import sys
 import multiprocessing as mp
 import os
+import pdb
 
 # import agent types (positions)
 from aigent.soccerpy.agent import Agent as A0
@@ -17,7 +18,7 @@ from aigent.agent_2 import Agent as A2
 from aigent.agent_3 import Agent as A3
 
 # set team
-TEAM_NAME = 'Keng'
+TEAM_NAME = 'LevyTrucco'
 NUM_PLAYERS = 11
 
 
@@ -41,7 +42,7 @@ if __name__ == "__main__":
         """
         # return type of agent by position, construct
         a = agent_type(position)()
-        a.connect("localhost", 6000, team_name)
+        a.connect("192.168.0.103", 6000, team_name)
         a.play()
 
         # we wait until we're killed
@@ -83,4 +84,3 @@ if __name__ == "__main__":
         print
         print "Exiting."
         sys.exit()
-
