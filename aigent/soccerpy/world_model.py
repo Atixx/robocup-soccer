@@ -130,6 +130,9 @@ class WorldModel:
         # create a new server parameter object for holding all server params
         self.server_parameters = ServerParameters()
 
+    def set_home_point(self, point):
+        self.home_point = point
+
     def triangulate_direction(self, flags, flag_dict):
         """
         Determines absolute view angle for the player given a list of visible
@@ -268,7 +271,7 @@ class WorldModel:
             y1 = point1[1]
             x2 = point2[0]
             y2 = point2[1]
-    
+
             return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
         except:
             return 200
@@ -295,7 +298,7 @@ class WorldModel:
             a = math.degrees(math.atan2(dy, dx))
             if a < 0:
                 a = 360 + a
-    
+
             return a
         except:
             return 0
@@ -306,7 +309,6 @@ class WorldModel:
         information.  This also calculates information not available directly
         from server-reported messages, such as player coordinates.
         """
-
         # update basic information
         self.ball = ball
         self.flags = flags
@@ -399,6 +401,7 @@ class WorldModel:
         return self.server_parameters.ball_speed_max
 
     def kick_to(self, point, extra_power=0.0):
+        #print "my coords: %f" % self.abs_coords
         """
         Kick the ball to some point with some extra-power factor added on.
         extra_power=0.0 means the ball should stop at the given point, anything
@@ -408,11 +411,15 @@ class WorldModel:
         # how far are we from the desired point?
         point_dist = self.euclidean_distance(self.abs_coords, point)
 
+        #align player with goal
+        self.turn_body_to_point(point)
+        self.align_neck_with_body()
         # get absolute direction to the point
         abs_point_dir = self.angle_between_points(self.abs_coords, point)
 
         # get relative direction to point from body, since kicks are relative to
         # body direction.
+
         if self.abs_body_dir is not None:
             rel_point_dir = self.abs_body_dir - abs_point_dir
 
@@ -435,7 +442,8 @@ class WorldModel:
         power = required_power * power_mod
 
         # do the kick, finally
-        self.ah.kick(rel_point_dir, power)
+        self.ah.kick(power, abs_point_dir)
+        # self.ah.kick(rel_point_dir, power)
 
     def get_effective_kick_power(self, ball, power):
         """
@@ -840,4 +848,3 @@ class ServerParameters:
         self.wind_none = 0
         self.wind_rand = 0
         self.wind_random = 0
-

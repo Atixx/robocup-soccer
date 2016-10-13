@@ -20,7 +20,7 @@ from soccerpy.world_model import WorldModel
 # potentially useful from aima
 # learning.py
 # mdp
-# 
+#
 
 class Agent(baseAgent):
     """
@@ -47,7 +47,7 @@ class Agent(baseAgent):
                 side_mod = -1
 
             if self.wm.uniform_number == 1:
-                self.wm.teleport_to_point((-5 * side_mod, 30))
+                self.wm.teleport_to_point((-50 * side_mod, 0))
             elif self.wm.uniform_number == 2:
                 self.wm.teleport_to_point((-40 * side_mod, 15))
             elif self.wm.uniform_number == 3:
@@ -111,7 +111,7 @@ class Agent(baseAgent):
         q_coords = self.wm.get_object_absolute_coords(q)
         qDir = self.wm.get_angle_to_point(q_coords)
         qDist = self.wm.get_distance_to_point(q_coords)
-        
+
         tDir = self.wm.get_angle_to_point(target_coords)
         tDist = self.wm.get_distance_to_point(target_coords)
 
@@ -120,7 +120,7 @@ class Agent(baseAgent):
 
 
     # Action decisions start
-    # 
+    #
     # find the ball by rotating if ball not found
     def find_ball(self):
         # find the ball
@@ -260,7 +260,7 @@ class Agent(baseAgent):
         else:
             self.wm.turn_body_to_point(self.own_goal_pos)
             self.wm.ah.dash(50)
-        return 
+        return
 
     # defensive, when ball isn't ours, and has entered our side of the field
     def shall_move_to_defend(self):
@@ -333,12 +333,12 @@ class Agent(baseAgent):
         except:
             # print "exceptions thrown, using fallback"
             self.defaultaction()
-        
+
 
 
 # by role: striker, defender
 # do the same preconds, but def on role diff actions
-# 1. 
+# 1.
 # shoot:
 # close enuf to ball and to self.enemy_goal_pos
 # if self.wm.ball.distance < 10 and self.get_distance_to_point(self.enemy_goal_pos) < 20 and self.is_ball_kickable():
@@ -350,12 +350,12 @@ class Agent(baseAgent):
 # move
 
 # striker:
-# 
+#
 
 # strategy: ordered
 # 1. close to ball: grab, carry toward goal, pass or shoot
 # 2. ain't, move to enemy (if enemy has ball), goal (if we have ball n jersey num), ball (if enemy n closest, or jersey num)
-# 3. 
+# 3.
 
 # conditions shd be:
 # shoot: ball aint none, ball kickable, close to goalpos

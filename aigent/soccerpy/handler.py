@@ -7,10 +7,10 @@ import game_object
 from world_model import WorldModel
 
 # should we print messages received from the server?
-PRINT_SERVER_MESSAGES = True
+PRINT_SERVER_MESSAGES = False
 
 # should we print commands sent to the server?
-PRINT_SENT_COMMANDS = True
+PRINT_SENT_COMMANDS = False
 
 class MessageHandler:
     """

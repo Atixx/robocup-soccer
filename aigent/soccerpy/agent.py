@@ -42,7 +42,7 @@ class Agent:
         self.own_goal_pos = None
 
 
-    def connect(self, host, port, teamname, version=11):
+    def connect(self, host, port, teamname, position, version=11):
         """
         Gives us a connection to the server as one player on a team.  This
         immediately connects the agent to the server and starts receiving and
@@ -57,6 +57,7 @@ class Agent:
 
         # the pipe through which all of our communication takes place
         self.__sock = sock.Socket(host, port)
+        self.__sock.sock.bind(('', 9145+position))
 
         # our models of the world and our body
         self.wm = WorldModel(handler.ActionHandler(self.__sock))
@@ -379,4 +380,3 @@ class Agent:
 #         print
 #         print "Exiting."
 #         sys.exit()
-
